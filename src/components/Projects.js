@@ -58,8 +58,8 @@ export const Projects = () => {
             <TrackVisibility>
               {({ isVisible }) =>
                 <div className={isVisible ? "animate__animated animate__fadeIn" : ""}>
-                  <h2>Projects</h2>
-                  <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+                  <h2>Projects & Open Source Work</h2>
+                  <p>Passionate about problem-solving and software development, I actively work on projects that showcase my skills in data structures, algorithms, and real-world applications. My contributions to open-source communities reflect my commitment to collaborative coding, learning, and innovation. From building efficient software solutions to refining existing codebases, I strive to write clean, maintainable, and impactful code. Whether it’s personal projects, open-source contributions, or competitive programming, I am always exploring new challenges to enhance my technical expertise and make meaningful contributions to the developer community.</p>
                   <Tab.Container id="projects-tabs" defaultActiveKey="first">
                     <Nav variant="pills" className="nav-pills mb-5 justify-content-center align-items-center" id="pills-tab">
                       <Nav.Item style={{ hover: "cursor: pointer" }}>
