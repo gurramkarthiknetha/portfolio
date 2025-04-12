@@ -27,4 +27,4 @@ yarn-error.log*
 # Development
 **/.cache/
 **/dist/
-**/.env
+**/.envfrontend/node_modules/.cache/
