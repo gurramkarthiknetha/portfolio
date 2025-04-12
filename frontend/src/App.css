@@ -21,6 +21,11 @@
   padding: 0;
   box-sizing: border-box;
 }
+@media print {
+  .newsletter-bx {
+    print-color-adjust: exact;
+  }
+}
 
 html {
   scroll-behavior: smooth;

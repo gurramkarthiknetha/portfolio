@@ -26,9 +26,9 @@ export const Footer = () => {
           </Col>
           <Col size={12} sm={6} className="text-center text-sm-end">
             <div className="social-icon">
-              <a href="#"><img src={navIcon1} alt="Icon" /></a>
-              <a href="#"><img src={navIcon2} alt="Icon" /></a>
-              <a href="#"><img src={navIcon3} alt="Icon" /></a>
+              <a href="https://www.linkedin.com/in/karthik-gurram-48b78228a/"><img src={navIcon1} alt="LinkedIn" /></a>
+              <a href="https://github.com/KarthikGurram24"><img src={navIcon2} alt="GitHub" /></a>
+              <a href="https://twitter.com/KarthikGurram24"><img src={navIcon3} alt="Twitter" /></a>
             </div>
             <p>Copyright 2027. All Rights Reserved</p>
           </Col>
