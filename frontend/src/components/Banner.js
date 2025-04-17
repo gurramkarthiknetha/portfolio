@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import headerImg from "../assets/img/gurramkarthik.JPG";
 import { ArrowRightCircle } from 'react-bootstrap-icons';
@@ -12,8 +12,9 @@ export const Banner = () => {
   const [isDeleting, setIsDeleting] = useState(false);
   const [text, setText] = useState('');
   const [delta, setDelta] = useState(300 - Math.random() * 100);
-  const toRotate = ["Web Developer", "App Developer", "Open Source Contributor"];
   const period = 2000;
+
+  const toRotate = useMemo(() => ["Web Developer", "App Developer", "Open Source Contributor"], []);
 
   useEffect(() => {
     const tick = () => {
