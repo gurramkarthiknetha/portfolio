@@ -82,7 +82,7 @@ export const Contact = () => {
                 placeholder="Message"
                 rows="6"
               ></textarea>
-              <button type="submit">Send</button>
+              <button className="btnsubmit" type="submit">Send</button>
               {status && <p>{status}</p>}
             </form>
           </Col>
