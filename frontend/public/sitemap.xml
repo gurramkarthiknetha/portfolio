@@ -4,4 +4,12 @@
     <loc>https://gurramkarthik.vercel.app/</loc>
     <priority>1.00</priority>
   </url>
-</urlset>q
+  <url>
+    <loc>https://gurramkarthik.vercel.app/projects</loc>
+    <priority>0.80</priority>
+  </url>
+  <url>
+    <loc>https://gurramkarthik.vercel.app/contact</loc>
+    <priority>0.80</priority>
+  </url>
+</urlset>
