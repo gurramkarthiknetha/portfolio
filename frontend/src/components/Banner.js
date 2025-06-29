@@ -50,7 +50,7 @@ export const Banner = () => {
             <TrackVisibility >
               {({ isVisible }) =>
                 <div className={isVisible ? "animate__animated animate__zoomIn" : ""}>
-                  <img style={{ borderRadius: "50%" }} src={headerImg} alt="Header Img" />
+                  <img style={{ borderRadius: "50%" }} src={headerImg} alt="Header Img" loading="lazy" />
 
                 </div>}
             </TrackVisibility>

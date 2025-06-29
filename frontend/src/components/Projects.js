@@ -120,7 +120,7 @@ export const Projects = () => {
                               variants={itemVariants}
                             >
                               <div className="timeline-content">
-                                <img src={project.imgUrl} alt={project.title} />
+                                <img src={project.imgUrl} alt={project.title} loading="lazy" />
                                 <h4>{project.title}</h4>
                                 <a href={project.prof} target="_blank" rel="noopener noreferrer" className="timeline-link">
                                   View Profile
@@ -167,7 +167,7 @@ export const Projects = () => {
                               variants={itemVariants}
                             >
                               <div className="timeline-content">
-                                <img src={project.imgUrl} alt={project.title} />
+                                <img src={project.imgUrl} alt={project.title} loading="lazy" />
                                 <h4>{project.title}</h4>
                                 <a href={project.prof} target="_blank" rel="noopener noreferrer" className="timeline-link">
                                   View Project
