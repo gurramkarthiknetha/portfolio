@@ -3,9 +3,10 @@ import { Container, Row, Col } from "react-bootstrap";
 import headerImg from "../assets/img/gurramkarthik.JPG";
 import { ArrowRightCircle } from 'react-bootstrap-icons';
 import 'animate.css';
-import TrackVisibility from 'react-on-screen';
 import { HashLink } from "react-router-hash-link";
 import { BrowserRouter as Router } from "react-router-dom";
+import { useSpring, animated, useTrail } from '@react-spring/web';
+import { useInView } from 'react-intersection-observer';
 
 export const Banner = () => {
   const [loopNum, setLoopNum] = useState(0);
@@ -15,6 +16,59 @@ export const Banner = () => {
   const period = 2000;
 
   const toRotate = useMemo(() => ["Web Developer", "App Developer", "Open Source Contributor"], []);
+
+  // Intersection Observer for triggering animations
+  const [ref, inView] = useInView({
+    threshold: 0.1,
+    triggerOnce: true
+  });
+
+  // Spring animations for the main content
+  const fadeInUp = useSpring({
+    opacity: inView ? 1 : 0,
+    transform: inView ? 'translateY(0px)' : 'translateY(50px)',
+    config: { tension: 280, friction: 60 },
+    delay: 200
+  });
+
+  const slideInLeft = useSpring({
+    opacity: inView ? 1 : 0,
+    transform: inView ? 'translateX(0px)' : 'translateX(-100px)',
+    config: { tension: 280, friction: 60 },
+    delay: 400
+  });
+
+  const slideInRight = useSpring({
+    opacity: inView ? 1 : 0,
+    transform: inView ? 'translateX(0px)' : 'translateX(100px)',
+    config: { tension: 280, friction: 60 },
+    delay: 600
+  });
+
+  // Floating animation for the profile image
+  const floatingAnimation = useSpring({
+    loop: true,
+    to: [
+      { transform: 'translateY(-10px)' },
+      { transform: 'translateY(10px)' }
+    ],
+    from: { transform: 'translateY(0px)' },
+    config: { duration: 3000 }
+  });
+
+  // Trail animation for text elements
+  const textElements = [
+    "Welcome to my Portfolio",
+    `Hi! I'm Karthik Gurram`,
+    "I am a Aspiring Data Scientist | GSoC Enthusiast | B.Tech Student from VNRVJIET"
+  ];
+
+  const trail = useTrail(textElements.length, {
+    opacity: inView ? 1 : 0,
+    transform: inView ? 'translateY(0px)' : 'translateY(30px)',
+    config: { tension: 280, friction: 60 },
+    delay: 800
+  });
 
   useEffect(() => {
     const tick = () => {
@@ -43,37 +97,62 @@ export const Banner = () => {
   }, [text, delta, isDeleting, loopNum, period, toRotate]);
 
   return (
-    <section className="banner" id="home">
+    <section className="banner" id="home" ref={ref}>
       <Container>
-        <Row className="aligh-items-center">
+        <Row className="align-items-center">
           <Col xs={12} md={6} xl={5}>
-            <TrackVisibility >
-              {({ isVisible }) =>
-                <div className={isVisible ? "animate__animated animate__zoomIn" : ""}>
-                  <img style={{ borderRadius: "50%" }} src={headerImg} alt="Header Img" loading="lazy" />
-
-                </div>}
-            </TrackVisibility>
+            <animated.div style={slideInLeft} className="profile-image-container">
+              <animated.div style={floatingAnimation}>
+                <img 
+                  style={{ 
+                    borderRadius: "50%", 
+                    boxShadow: "0 20px 40px rgba(170, 54, 124, 0.3)",
+                    border: "3px solid rgba(255, 255, 255, 0.1)"
+                  }} 
+                  src={headerImg} 
+                  alt="Header Img" 
+                  loading="lazy" 
+                />
+              </animated.div>
+            </animated.div>
           </Col>
 
           <Col xs={12} md={6} xl={7}>
-            <TrackVisibility>
-              {({ isVisible }) =>
-                <div className={isVisible ? "animate__animated animate__fadeIn" : ""}>
-                  <span className="tagline">Welcome to my Portfolio</span>
-                  <h1>{`Hi! I'm Karthik Gurram`} <span className="txt-rotate" dataperiod="1000" data-rotate='[ "Web Developer", "App Developer", "Open Source Contributor" ]'><span className="wrap">{text}</span></span></h1>
-                  <h2>I am a <span className="txt-rotate" data-period="2000" ></span>Aspiring Data Scientist | GSoC Enthusiast | B.Tech Student from VNRVJIET</h2>
-                  <p>
-                    Currently pursuing a B.Tech degree from VNR Vignana Jyothi Institute of Engineering & Technology, with a strong passion for data science and innovation. I am driven by the goal of cracking the Google Summer of Code (GSoC) and building a career as a data scientist. With a commitment to continuous learning and skill-building, I am on a path to make impactful contributions to the tech industry. Expected to graduate in 2027.</p>
-                    <Router>
-                      <HashLink to='#connect'>
-                        <button className="vvd"><span>Let’s Connect <ArrowRightCircle size={25} /></span></button>
-                      </HashLink>
-                    </Router>
-                </div>}
-            </TrackVisibility>
+            <animated.div style={slideInRight}>
+              {trail.map((style, index) => (
+                <animated.div key={index} style={style}>
+                  {index === 0 && <span className="tagline">{textElements[index]}</span>}
+                  {index === 1 && (
+                    <h1>
+                      {textElements[index]}{' '}
+                      <span className="txt-rotate">
+                        <span className="wrap">{text}</span>
+                      </span>
+                    </h1>
+                  )}
+                  {index === 2 && <h2>{textElements[index]}</h2>}
+                </animated.div>
+              ))}
+              
+              <animated.p style={fadeInUp}>
+                Currently pursuing a B.Tech degree from VNR Vignana Jyothi Institute of Engineering & Technology, 
+                with a strong passion for data science and innovation. I am driven by the goal of cracking the 
+                Google Summer of Code (GSoC) and building a career as a data scientist. With a commitment to 
+                continuous learning and skill-building, I am on a path to make impactful contributions to the 
+                tech industry. Expected to graduate in 2027.
+              </animated.p>
+              
+              <animated.div style={fadeInUp}>
+                <Router>
+                  <HashLink to='#connect'>
+                    <button className="vvd enhanced-button">
+                      <span>Let's Connect <ArrowRightCircle size={25} /></span>
+                    </button>
+                  </HashLink>
+                </Router>
+              </animated.div>
+            </animated.div>
           </Col>
-
         </Row>
       </Container>
     </section>

@@ -1,6 +1,5 @@
-import { Container, Row, Col, Tab, Nav, Card } from "react-bootstrap";
+import { Container, Row, Col, Tab, Nav } from "react-bootstrap";
 import { motion } from "framer-motion";
-import { ProjectCard } from "./ProjectCard";
 import projImg1 from "../assets/img/linkedin.jpeg";
 import codechef from "../assets/img/codechef.jpeg";
 import git from "../assets/img/git.jpeg";
@@ -9,22 +8,19 @@ import codeforces from "../assets/img/codeforces.jpeg";
 import leetcode from "../assets/img/leetcode.png";
 import hackerank from "../assets/img/hackerrank.png";
 import colorSharp2 from "../assets/img/color-sharp2.png";
-import jobby from "../assets/img1/job_files/app-phone-screen-mockup_157104-800.jpg";
-import vi from "../assets/img1/vi_files/data-science-big-technology-scientist-260nw-2284126663.jpg";
-import ec from "../assets/img1/ecc_files/3d-shopping-online-with-laptop-product-shipping-packing-shopping-bag-basket-credit-card-protection-with-password-secure-online-payment-concept-notebook-icon-3d-vector-render-illustration_412828-960.jpg";
+import jobby from "../assets/img1/jobby.jpeg";
+import vi from "../assets/img1/vi.jpeg";
+import ec from "../assets/img1/ecomm.webp";
 import todo from "../assets/img1/todo.jpeg";
-import snakegame from "../assets/img1/snake_files/2025-year-snake-modern-banner-card-with-multicolored-geometric-snake-blue-background_624052-4091.jpg";
-import chart from "../assets/img1/chartbot.jpg";
+import snakegame from "../assets/img1/snake.jpeg";
+
 
 import 'animate.css';
 import TrackVisibility from 'react-on-screen';
 
 export const Projects = () => {
 
-  const cardVariants = {
-    hidden: { opacity: 0, y: 50 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
-  };
+
 
   const timelineVariants = {
     hidden: { opacity: 0 },
@@ -91,8 +87,10 @@ export const Projects = () => {
             <TrackVisibility>
               {({ isVisible }) =>
                 <div className={isVisible ? "animate__animated animate__fadeIn" : ""}>
-                  <h2>Projects & Open Source Work</h2>
-                  <p>Passionate about problem-solving and software development, I actively work on projects that showcase my skills in data structures, algorithms, and real-world applications. My contributions to open-source communities reflect my commitment to collaborative coding, learning, and innovation. From building efficient software solutions to refining existing codebases, I strive to write clean, maintainable, and impactful code. Whether it’s personal projects, open-source contributions, or competitive programming, I am always exploring new challenges to enhance my technical expertise and make meaningful contributions to the developer community.</p>
+                  <h2 data-aos="fade-up">Projects & Open Source Work</h2>
+                  <p data-aos="fade-up" data-aos-delay="100">
+                    Passionate about problem-solving and software development, I actively work on projects that showcase my skills in data structures, algorithms, and real-world applications. My contributions to open-source communities reflect my commitment to collaborative coding, learning, and innovation. From building efficient software solutions to refining existing codebases, I strive to write clean, maintainable, and impactful code. Whether it’s personal projects, open-source contributions, or competitive programming, I am always exploring new challenges to enhance my technical expertise and make meaningful contributions to the developer community.
+                  </p>
                   <Tab.Container id="projects-tabs" defaultActiveKey="first">
                     <Nav variant="pills" className="nav-pills mb-5 justify-content-center align-items-center" id="pills-tab">
                       <Nav.Item style={{ hover: "cursor: pointer" }}>

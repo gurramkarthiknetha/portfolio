@@ -5,14 +5,13 @@ import navIcon1 from '../assets/img/nav-icon1.svg';
 import navIcon2 from '../assets/img/nav-icon2.svg';
 import navIcon3 from '../assets/img/nav-icon3.svg';
 import { HashLink } from 'react-router-hash-link';
-import {
-  BrowserRouter as Router
-} from "react-router-dom";
+import { BrowserRouter as Router } from "react-router-dom";
+import { useSpring, animated } from '@react-spring/web';
 
 export const NavBar = () => {
-
   const [activeLink, setActiveLink] = useState('home');
   const [scrolled, setScrolled] = useState(false);
+  const [scrollProgress, setScrollProgress] = useState(0);
 
   useEffect(() => {
     const onScroll = () => {
@@ -21,10 +20,26 @@ export const NavBar = () => {
       } else {
         setScrolled(false);
       }
+
+      // Calculate scroll progress
+      const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = (window.scrollY / totalHeight) * 100;
+      setScrollProgress(progress);
+
+      // Update active link based on scroll position
+      const sections = ['home', 'skills', 'projects', 'connect'];
+      const scrollPosition = window.scrollY + 100;
+
+      for (let i = sections.length - 1; i >= 0; i--) {
+        const element = document.getElementById(sections[i]);
+        if (element && element.offsetTop <= scrollPosition) {
+          setActiveLink(sections[i]);
+          break;
+        }
+      }
     }
 
     window.addEventListener("scroll", onScroll);
-
     return () => window.removeEventListener("scroll", onScroll);
   }, [])
 
@@ -32,21 +47,40 @@ export const NavBar = () => {
     setActiveLink(value);
   }
 
+  // Spring animation for navbar
+  const navbarAnimation = useSpring({
+    backgroundColor: scrolled ? 'rgba(0, 0, 0, 0.9)' : 'rgba(0, 0, 0, 0.1)',
+    backdropFilter: scrolled ? 'blur(10px)' : 'blur(0px)',
+    config: { tension: 300, friction: 30 }
+  });
+
+  // Spring animation for logo
+  const logoAnimation = useSpring({
+    transform: scrolled ? 'scale(0.8)' : 'scale(1)',
+    config: { tension: 300, friction: 30 }
+  });
+
   return (
     <Router>
-      <Navbar expand="md" className={scrolled ? "scrolled" : ""}>
+      {/* Scroll Progress Bar */}
+      <div className="scroll-progress-bar" style={{ width: `${scrollProgress}%` }}></div>
+
+      <animated.div style={navbarAnimation}>
+        <Navbar expand="md" className={`enhanced-navbar ${scrolled ? "scrolled" : ""}`}>
         <Container>
           <Navbar.Brand href="/">
-          <img
-              src={logo}
-              style={{
-                width: '80px',
-                height: '80px',
-                borderRadius: '50%',
-                objectFit: 'cover' 
-              }}
-              alt="Logo"
-            />
+            <animated.div style={logoAnimation}>
+              <img
+                src={logo}
+                style={{
+                  width: '80px',
+                  height: '80px',
+                  borderRadius: '50%',
+                  objectFit: 'cover'
+                }}
+                alt="Logo"
+              />
+            </animated.div>
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav">
             <span className="navbar-toggler-icon"></span>
@@ -69,7 +103,8 @@ export const NavBar = () => {
             </span>
           </Navbar.Collapse>
         </Container>
-      </Navbar>
+        </Navbar>
+      </animated.div>
     </Router>
   )
 }
